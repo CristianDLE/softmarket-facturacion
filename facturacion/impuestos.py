@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
 
 
 class Impuesto(ABC):
@@ -12,4 +12,4 @@ class IVA(Impuesto):
         self._tasa = tasa
 
     def calcular(self, base: Decimal) -> Decimal:
-        return base * self._tasa
+        return (base * self._tasa).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
